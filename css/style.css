@@ -1,8 +1,13 @@
+/* Расходники — вёрстка сайта.
+   Принципы: чтение с мобилки, тёмная/светлая тема по системе,
+   книжный serif, сцены и диалоги по спецификации «Форма». */
+
 :root {
   --bg: #faf8f5;
   --fg: #1f1f1f;
-  --muted: #777;
+  --muted: #6f6a63;
   --accent: #8a4b2a;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -10,19 +15,29 @@
     --fg: #e8e6e3;
     --muted: #9a968f;
     --accent: #d29a6b;
+    color-scheme: dark;
   }
 }
+
 * { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
 body {
   margin: 0 auto;
-  max-width: 38rem;
-  padding: 2rem 1.25rem 4rem;
+  max-width: 40rem;
+  padding: 1.5rem 1.25rem 4rem;
   background: var(--bg);
   color: var(--fg);
-  font: 1.125rem/1.7 Georgia, "Times New Roman", serif;
+  font-family: Charter, "Bitstream Charter", "PT Serif", "Charis SIL", Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
 }
+
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+
+/* --- Каркас --- */
 
 .site-header {
   border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
@@ -43,14 +58,48 @@ a:hover { text-decoration: underline; }
   font-size: 0.9rem;
 }
 
+/* --- Главная --- */
+
 .intro p { color: var(--muted); }
 .season { margin-top: 2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 ol.episodes { padding-left: 1.5rem; }
 ol.episodes li { margin: 0.4rem 0; }
 .empty { color: var(--muted); font-style: italic; }
 
-article.episode h1 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 2rem; }
+/* --- Эпизод --- */
+
+article.episode h1 {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin-bottom: 2.5rem;
+}
 article.episode p { margin: 1.1rem 0; }
+
+/* Номер сцены: крупно, по центру */
+article.episode h2.scene {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 3rem 0 0.4rem;
+}
+
+/* Логлайн (место и время) сразу после номера сцены: курсив */
+article.episode p.logline {
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0 0 1.75rem;
+}
+
+/* Диалоги: отступ слева; имя говорящего — курсивом (em.speaker) */
+article.episode p.dlg {
+  margin: 1rem 0 1rem 2rem;
+}
+article.episode em.speaker {
+  font-style: italic;
+}
+
+/* Документ-врезка */
 article.episode blockquote {
   margin: 1.5rem 0;
   padding-left: 1rem;
@@ -58,6 +107,7 @@ article.episode blockquote {
   color: var(--muted);
 }
 
+/* Навигация между эпизодами */
 .episode-nav {
   display: flex;
   justify-content: space-between;
@@ -66,3 +116,15 @@ article.episode blockquote {
   font-size: 0.95rem;
 }
 .episode-nav .next { margin-left: auto; }
+
+/* --- Мобилка --- */
+
+@media (max-width: 480px) {
+  body {
+    padding: 1rem 1rem 3rem;
+    font-size: 1.0625rem;
+  }
+  article.episode p.dlg {
+    margin-left: 1.25rem;
+  }
+}
